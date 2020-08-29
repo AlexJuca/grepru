@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::BufReader;
 use grepru::matcher;
 use grepru::cli::Cli;
-
+use structopt::StructOpt;
 
 fn main() {
     let args = Cli::from_args();

@@ -25,8 +25,8 @@ pub mod cli {
         #[structopt(required_unless = "version")]
         pub(crate) pattern: String,
         #[structopt(parse(from_os_str), required_unless = "version")]
-        path: PathBuf,
+        pub path: PathBuf,
         #[structopt(short = "v", long = "version", help = "print version")]
-        version: bool
+        pub version: bool
     }
 }

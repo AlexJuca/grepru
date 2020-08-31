@@ -1,4 +1,5 @@
 pub mod matcher {
+    #[allow(unused_imports)]
     use std::io::{BufReader, BufRead, Read};
     use std::fs::File;
     use crate::cli::Cli;

@@ -8,7 +8,7 @@ fn main() {
     let args = Cli::from_args();
 
     let content = File::open(&args.path).unwrap_or_else( |err| {
-        panic!("Failed to read path {}", err);
+        panic!("{}", err);
     });
 
     let mut reader = BufReader::new(content);

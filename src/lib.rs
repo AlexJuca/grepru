@@ -17,12 +17,26 @@ pub mod matcher {
         if args.count == true {
             if pattern.len() > 1 {
                 count = count_words(&text, pattern.parse().unwrap());
+            } else {
+                count = count_chars(&text, pattern.parse().unwrap());
             }
             println!("{}", count);
         }
         if text.contains(&args.pattern) && args.count == false {
             println!("{}", text);
         }
+    }
+
+    fn count_chars(text: &String, pattern: String) -> u32 {
+        let mut count = 0;
+        let b: char = pattern.char_indices().next().unwrap().1;
+        text.chars().for_each(|c| {
+            if c.eq(&b) {
+                count += 1;
+            }
+        });
+
+        return count;
     }
 
     fn count_words(text: &String, pattern: String) -> u32 {

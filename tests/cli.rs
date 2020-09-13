@@ -32,3 +32,14 @@ fn print_line_count() {
         .success()
         .stdout(predicate::str::contains("2"));
 }
+
+#[test]
+fn should_print_line_count_for_single_char_search() {
+    let mut cmd = Command::cargo_bin("grepru").unwrap();
+    let mut file = NamedTempFile::new().unwrap();
+    writeln!(file, "hi\nhi\nHello\nHello").unwrap();
+    cmd.arg("h").arg(file.path()).arg("-c");
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains("2"));
+}

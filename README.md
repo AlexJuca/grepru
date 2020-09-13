@@ -13,7 +13,7 @@ This is a clone of the popular ```grep``` linux command written in rust.
 
 #### Search for string in file
 ```bash
-grepru "if the lady" data.txt
+grepru "if the lady" file.txt
 
 ```
 
@@ -23,6 +23,10 @@ grepru --version || grepru --V
 
 ```
 
+#### Print only a count of selected lines per FILE
+```bash
+grepru "hello" file.txt -c
+```
 
 License
 ----------------

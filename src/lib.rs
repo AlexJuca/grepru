@@ -14,6 +14,10 @@ pub mod matcher {
         }
         let pattern = &args.pattern;
 
+        if args.line_number == true {
+            find_pattern_and_print_line_number(&text, pattern.parse().unwrap());
+        }
+
         if args.count == true {
             if pattern.len() > 1 {
                 count = count_words(&text, pattern.parse().unwrap());
@@ -25,6 +29,29 @@ pub mod matcher {
         if text.contains(&args.pattern) && args.count == false {
             println!("{}", text);
         }
+    }
+
+
+    fn find_pattern_and_print_line_number(text: &String, pattern: String) {
+        if text.len() > 1 {
+            find_patterns_for_words(&text, pattern);
+        } else {
+
+        }
+        std::process::exit(0);
+    }
+
+    fn find_patterns_for_words(text: &String, pattern: String) {
+        let mut line_count = 0;
+        let lines = text.lines().for_each(|line| {
+            line_count += 1;
+            let temp_line = line.trim();
+            temp_line.split_ascii_whitespace().for_each(|l| {
+                if pattern.eq(l) {
+                    println!("{}:{}", line_count, l);
+                }
+            })
+        });
     }
 
     fn count_chars(text: &String, pattern: String) -> u32 {
@@ -62,6 +89,8 @@ pub mod cli {
         #[structopt(parse(from_os_str), required_unless = "version")]
         pub path: PathBuf,
         #[structopt(parse(from_flag), short="-c", long="--count", help = "print only a count of selected lines per FILE")]
-        pub(crate) count: bool
+        pub(crate) count: bool,
+        #[structopt(parse(from_flag), short="-n", long="--line-number", help = "Prefix each line of output with the 1-based line number within its input file.")]
+        pub(crate) line_number: bool
     }
 }

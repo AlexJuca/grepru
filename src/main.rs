@@ -1,18 +1,21 @@
+
+mod text;
+mod cli;
+
 use std::fs::File;
 use std::io::BufReader;
-use grepru::matcher;
-use grepru::cli::Cli;
 use structopt::StructOpt;
+use cli::cli::cli::CliOptions;
 
 fn main() {
-    let args = Cli::from_args();
+    let args = CliOptions::from_args();
 
     let content = File::open(&args.path).unwrap_or_else( |err| {
         panic!("{}", err);
     });
 
     let mut reader = BufReader::new(content);
-    matcher::find_matches(&args, &mut reader)
+    text::text::matcher::find_matches(&args, &mut reader)
 }
 
 

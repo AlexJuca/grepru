@@ -28,6 +28,10 @@ grepru --version || grepru --V
 grepru "hello" file.txt -c
 ```
 
+#### Prints only the lines that contain the searched word
+```bash
+grepru "hello" file.txt -n
+```
 License
 ----------------
 

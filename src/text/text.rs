@@ -4,6 +4,7 @@ pub mod matcher {
     use crate::cli::cli::cli::CliOptions;
     use std::io::{BufReader, Read};
     use std::fs::File;
+    use yansi::{Paint, Color, Style};
 
     pub fn find_matches(args: &CliOptions, reader: &mut BufReader<File>) {
         let mut text = String::new();
@@ -41,15 +42,19 @@ pub mod matcher {
 
     fn find_patterns_for_words(text: &String, pattern: String) {
         let mut line_count = 0;
+        let mut count = 0;
         text.lines().for_each(|line| {
             line_count += 1;
             let temp_line = line.trim();
-            temp_line.split_ascii_whitespace().for_each(|l| {
-                if pattern.eq(l) {
-                    println!("{}:{}", line_count, l);
+            temp_line.split_ascii_whitespace().for_each(|word| {
+                if pattern.eq(word) {
+                    count += 1;
+                    println!("{}:{}", Paint::green(line_count), Paint::black(word));
                 }
             })
         });
+        let style = Style::new(Color::Blue).bold().blink();
+        println!("{} The pattern `{}` appeared {} times in this search", Paint::masked("🎉🎉"), style.paint(pattern), count);
     }
 
     fn count_chars(text: &String, pattern: String) -> u32 {

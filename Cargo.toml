@@ -8,9 +8,9 @@ edition = "2018"
 
 [dependencies]
 structopt = "0.3.13"
+yansi = "0.5.0"
 
 [dev-dependencies]
 assert_cmd = "0.10"
 predicates = "1.0.5"
 tempfile = "3"
-yansi = "0.5.0"

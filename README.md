@@ -28,6 +28,12 @@ grepru --version || grepru --V
 grepru "hello" file.txt -c
 ```
 
+#### Prefix each line of output with the 1-based line number within its input file.
+```bash
+grepru "hello" file.txt -n
+```
+![](/images/line-number.png)
+
 License
 ----------------
 

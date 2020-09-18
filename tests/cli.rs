@@ -3,6 +3,7 @@ use assert_cmd::prelude::*;
 use predicates::prelude::*;
 use std::io::{self, Write};
 use tempfile::NamedTempFile;
+use yansi::{Color, Style, Paint};
 
 #[test]
 fn print_version() {
@@ -46,6 +47,9 @@ fn should_print_line_count_for_single_char_search() {
 
 #[test]
 fn should_print_line_number() {
+    let style = Style::new(Color::Blue).bold().blink();
+    let output = format!("{} The pattern `{}` appeared {} times in this search", Paint::masked("🎉🎉"), style.paint("hey"), 1);
+
     let mut cmd = Command::cargo_bin("grepru").unwrap();
     let mut file = NamedTempFile::new().unwrap();
     writeln!(file, "hi\n hey\n").unwrap();
@@ -53,5 +57,5 @@ fn should_print_line_number() {
     cmd.arg("hey").arg(file.path()).arg("-n");
     cmd.assert()
         .success()
-        .stdout(predicate::str::contains("2:hey"));
+        .stdout(predicate::str::contains(output));
 }
